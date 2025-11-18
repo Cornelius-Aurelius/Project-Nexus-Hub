@@ -3,119 +3,232 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cornelius Aurelius • Quantum Hub</title>
-  <meta name="description" content="Official hub of Cornelius Aurelius: a network of advanced AI systems, cognitive engines, and quantum-grade tools." />
+  <title>Cornelius Aurelius • Quantum Nexus Portal</title>
+  <meta name="description" content="Quantum Nexus Portal – an ultra‑advanced neon‑powered interface connecting all experimental tools by Cornelius Aurelius." />
   <meta name="author" content="Cornelius Aurelius" />
   <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="Cornelius Aurelius • Quantum Hub" />
-  <meta property="og:description" content="Central access point to all next‑generation AI systems by Cornelius Aurelius." />
+  <meta property="og:title" content="Cornelius Aurelius • Quantum Nexus Portal" />
+  <meta property="og:description" content="Enter the quantum-grade experimental AI portal built by Cornelius Aurelius." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#00D0FF" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #000;
-      color: #e8f7ff;
-      overflow-x: hidden;
-    }
-    header {
-      padding: 60px 20px;
-      text-align: center;
-      background: radial-gradient(circle at top, #00baff22, #000 70%);
-    }
-    h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      color: #00d0ff;
-      margin: 0;
-      text-shadow: 0 0 20px #00d0ff55;
-    }
-    .subtitle {
-      font-size: 1.2rem;
-      opacity: 0.8;
-      margin-top: 10px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      padding: 40px 20px;
-      max-width: 1400px;
-      margin: auto;
-    }
-    .card {
-      background: #0a0a0f;
-      border: 1px solid #0f2d38;
-      border-radius: 12px;
-      padding: 20px;
-      transition: 0.25s;
-      box-shadow: 0 0 10px #00d0ff11;
-    }
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 25px #00d0ff44;
-      border-color: #00d0ff;
-    }
-    .card a {
-      text-decoration: none;
-      color: #00d0ff;
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
-    footer {
-      text-align: center;
-      padding: 40px 10px;
-      font-size: 0.9rem;
-      opacity: 0.7;
-    }
-    .license {
-      margin-top: 10px;
-      font-size: 0.8rem;
-    }
-  </style>
+
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #000;
+    color: #e8f7ff;
+    overflow-x: hidden;
+  }
+
+  /* Neon Cursor */
+  body { cursor: none; }
+  #cursor {
+    width: 14px; height: 14px;
+    border: 2px solid #00d0ff;
+    border-radius: 50%; position: fixed;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Particle Background */
+  canvas#bg {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+  }
+
+  header {
+    padding: 90px 20px 60px;
+    text-align: center;
+    background: radial-gradient(circle at top, #00baff22, #000 70%);
+  }
+  h1 {
+    font-size: 3.6rem;
+    font-weight: 800;
+    color: #00d0ff;
+    margin: 0;
+    text-shadow: 0 0 25px #00d0ff66;
+    letter-spacing: 1px;
+    animation: neonPulse 3s infinite alternate;
+  }
+
+  @keyframes neonPulse {
+    from { text-shadow: 0 0 10px #00d0ff44; }
+    to   { text-shadow: 0 0 30px #00d0ffcc; }
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.85;
+    margin-top: 15px;
+  }
+
+  /* Search */
+  #searchBar {
+    margin: 25px auto 0;
+    display: block;
+    padding: 14px 20px;
+    width: 90%; max-width: 520px;
+    border-radius: 50px;
+    border: 1px solid #00d0ff66;
+    background: #02070a;
+    color: #00d0ff;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 0 15px #00d0ff22;
+  }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: auto;
+  }
+  .card {
+    background: #0a0a0f;
+    border: 1px solid #0f2d38;
+    border-radius: 14px;
+    padding: 22px;
+    transition: 0.25s;
+    box-shadow: 0 0 10px #00d0ff11;
+    position: relative;
+    opacity: 0; transform: translateY(25px);
+  }
+
+  .card.show { opacity: 1; transform: translateY(0); }
+
+  .card:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: 0 0 35px #00d0ff55;
+    border-color: #00d0ff;
+  }
+  .card a {
+    text-decoration: none;
+    color: #00d0ff;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 50px 10px;
+    font-size: 0.95rem;
+    opacity: 0.75;
+    background: linear-gradient(to top, #001117, transparent);
+    border-top: 1px solid #003544;
+  }
+  .license a { color:#00d0ff; }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Cornelius Aurelius</h1>
-    <div class="subtitle">Quantum‑Optimized AI Ecosystem • Master Hub</div>
-  </header>
 
-  <section class="grid">
-    <!-- Auto‑generated links -->
-    <div class="card"><a href="https://cornelius-aurelius.github.io/QuantumAurora-Prime/">QuantumAurora Prime</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/neon-orbit-singularity/">Neon Orbit Singularity</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/reality-breaker/">Reality Breaker</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/ETHICS-HELPER/">Ethics Helper</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/instant-expert-neon/">Instant Expert NEON</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/book-to-gpt-builder/">Book → GPT Builder</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/brain-training-arena-pro/">Brain Training Arena Pro</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/millionaire-habit-builder/">Millionaire Habit Builder</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/life-decision-matrix-pro/">Life Decision Matrix Pro</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/study-planner-pro/">Study Planner Pro</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/mood-tracker-pro/">Mood Tracker Pro</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/should-i-buy-this-pro/">Should I Buy This? Pro</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/resume-analyzer-instant/">Resume Analyzer Instant</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/instant-cover-letter/">Instant Cover Letter</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/omniscientrix-map/">Omniscientrix Map</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/omniscientrix-universe-map-v2/">Omniscientrix Universe Map v2</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/Omniscientrix-vOmega-Autopilot/">Omniscientrix vOmega Autopilot</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/AI-Universal-Workspace/">AI Universal Workspace</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/AIAutomationTitan/">AI Automation Titan</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/Speculative-Museum-of-Impossible-Ecosystems/">Speculative Museum</a></div>
-    <div class="card"><a href="https://cornelius-aurelius.github.io/QuantumCortex_RealTime_AI_Atlas/">QuantumCortex Real‑Time AI Atlas</a></div>
-  </section>
+<canvas id="bg"></canvas>
+<div id="cursor"></div>
 
-  <footer>
-    © Cornelius Aurelius — All Rights Reserved<br>
-    <div class="license">
-      Peace License: <a href="https://zenodo.org/records/17362534" style="color:#00d0ff;">Link</a><br>
-      Contact: 138licensing@gmail.com
-    </div>
-  </footer>
+<header>
+  <h1>Quantum Nexus Portal</h1>
+  <div class="subtitle">Experimental AI Systems • Cornelius Aurelius</div>
+  <input id="searchBar" placeholder="Search tools..." />
+</header>
+
+<section class="grid" id="cardGrid">
+  <div class="card"><a href="https://cornelius-aurelius.github.io/QuantumAurora-Prime/">QuantumAurora Prime</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/neon-orbit-singularity/">Neon Orbit Singularity</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/reality-breaker/">Reality Breaker</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/ETHICS-HELPER/">Ethics Helper</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/instant-expert-neon/">Instant Expert NEON</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/book-to-gpt-builder/">Book → GPT Builder</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/brain-training-arena-pro/">Brain Training Arena Pro</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/millionaire-habit-builder/">Millionaire Habit Builder</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/life-decision-matrix-pro/">Life Decision Matrix Pro</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/study-planner-pro/">Study Planner Pro</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/mood-tracker-pro/">Mood Tracker Pro</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/should-i-buy-this-pro/">Should I Buy This? Pro</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/resume-analyzer-instant/">Resume Analyzer Instant</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/instant-cover-letter/">Instant Cover Letter</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/omniscientrix-map/">Omniscientrix Map</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/omniscientrix-universe-map-v2/">Omniscientrix Universe Map v2</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/Omniscientrix-vOmega-Autopilot/">Omniscientrix vOmega Autopilot</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/AI-Universal-Workspace/">AI Universal Workspace</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/AIAutomationTitan/">AI Automation Titan</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/Speculative-Museum-of-Impossible-Ecosystems/">Speculative Museum</a></div>
+  <div class="card"><a href="https://cornelius-aurelius.github.io/QuantumCortex_RealTime_AI_Atlas/">QuantumCortex Real-Time AI Atlas</a></div>
+</section>
+
+<footer>
+  © Cornelius Aurelius — All Rights Reserved<br>
+  <div class="license">
+    Peace License: <a href="https://zenodo.org/records/17362534">Link</a><br>
+    Contact: 138licensing@gmail.com
+  </div>
+</footer>
+
+<script>
+// Neon Cursor
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+
+// Particle Background
+const c = document.getElementById('bg');
+const ctx = c.getContext('2d');
+let w, h;
+function resize() {
+  w = c.width = window.innerWidth;
+  h = c.height = window.innerHeight;
+}
+window.onresize = resize;
+resize();
+
+let particles = Array.from({length: 80}, () => ({
+  x: Math.random() * w,
+  y: Math.random() * h,
+  vx: (Math.random() - .5) * .6,
+  vy: (Math.random() - .5) * .6
+}));
+
+function draw() {
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = '#00d0ff';
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if(p.x < 0 || p.x > w) p.vx *= -1;
+    if(p.y < 0 || p.y > h) p.vy *= -1;
+    ctx.beginPath(); ctx.arc(p.x,p.y,1.4,0,Math.PI*2); ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+// Scroll reveal
+const cards = document.querySelectorAll('.card');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('show');
+  });
+},{threshold:0.1});
+cards.forEach(c => io.observe(c));
+
+// Search Filter
+const searchBar = document.getElementById('searchBar');
+searchBar.addEventListener('input', e => {
+  const term = e.target.value.toLowerCase();
+  cards.forEach(card => {
+    const txt = card.innerText.toLowerCase();
+    card.style.display = txt.includes(term) ? 'block' : 'none';
+  });
+});
+</script>
 
 </body>
 </html>

@@ -293,5 +293,123 @@ fxLayer.style.background='radial-gradient(circle at center,#00eaff11,#000000ff)'
 fxLayer.style.mixBlendMode='screen'; fxLayer.style.animation='pulseField 6s infinite ease-in-out';
 document.body.appendChild(fxLayer);
 </script>
+<script>
+/* V100 AESTHETIC OVERDRIVE – MAXIMUM POSSIBLE WITH RAW INDEX.HTML */
+
+// LAYER: NEON COSMIC FOG
+const fog = document.createElement('div');
+fog.style.position='fixed'; fog.style.top=0; fog.style.left=0;
+fog.style.width='100%'; fog.style.height='100%';
+fog.style.background='radial-gradient(circle at 50% 50%, #00eaff08 0%, #000000ff 70%)';
+fog.style.pointerEvents='none'; fog.style.zIndex='-3';
+fog.style.animation='fogPulse 18s infinite ease-in-out';
+document.body.appendChild(fog);
+
+// LAYER: CHROMATIC LIGHT VEINS
+const veinCanvas = document.createElement('canvas');
+veinCanvas.id = 'veins';
+veinCanvas.style.position='fixed';
+veinCanvas.style.top=0;
+veinCanvas.style.left=0;
+veinCanvas.style.width='100%';
+veinCanvas.style.height='100%';
+veinCanvas.style.zIndex='-2';
+veinCanvas.style.pointerEvents='none';
+document.body.appendChild(veinCanvas);
+
+const vctx = veinCanvas.getContext('2d');
+function sizeVeins(){ veinCanvas.width=innerWidth; veinCanvas.height=innerHeight; }
+sizeVeins(); window.onresize=sizeVeins;
+
+let veins = Array.from({length: 40},()=>({
+  x: Math.random()*innerWidth,
+  y: Math.random()*innerHeight,
+  r: Math.random()*1+0.3,
+  vx:(Math.random()-0.5)*0.4,
+  vy:(Math.random()-0.5)*0.4
+}));
+
+function drawVeins(){
+  vctx.clearRect(0,0,veinCanvas.width,veinCanvas.height);
+  veins.forEach(v=>{
+    v.x+=v.vx; v.y+=v.vy;
+    if(v.x<0||v.x>innerWidth) v.vx*=-1;
+    if(v.y<0||v.y>innerHeight) v.vy*=-1;
+    let grd=vctx.createRadialGradient(v.x,v.y,0,v.x,v.y,40);
+    grd.addColorStop(0,'#00eaff77');
+    grd.addColorStop(1,'transparent');
+    vctx.fillStyle=grd;
+    vctx.beginPath(); vctx.arc(v.x,v.y,45,0,Math.PI*2); vctx.fill();
+  });
+  requestAnimationFrame(drawVeins);
+}
+drawVeins();
+
+// LAYER: INTERACTIVE SPACE WARP
+const warp=document.createElement('div');
+warp.style.position='fixed'; warp.style.top=0; warp.style.left=0;
+warp.style.width='100%'; warp.style.height='100%';
+warp.style.pointerEvents='none'; warp.style.zIndex='-4';
+warp.style.backdropFilter='blur(0px)';
+warp.style.transition='backdrop-filter 0.2s linear';
+document.body.appendChild(warp);
+
+document.addEventListener('mousemove',e=>{
+  let intensity = (Math.abs(e.clientX - innerWidth/2) / innerWidth)*6;
+  warp.style.backdropFilter = `blur(${intensity}px)`;
+});
+
+// LAYER: FLOATING AI GLYPHS
+const glyphs = document.createElement('div');
+glyphs.style.position='fixed';
+glyphs.style.top=0;
+glyphs.style.left=0;
+glyphs.style.width='100%';
+glyphs.style.height='100%';
+glyphs.style.pointerEvents='none';
+glyphs.style.zIndex='-1';
+glyphs.style.fontFamily='monospace';
+glyphs.style.color='#00eaff22';
+glyphs.style.fontSize='14px';
+glyphs.style.whiteSpace='pre';
+glyphs.style.lineHeight='14px';
+glyphs.style.userSelect='none';
+
+glyphs.innerHTML = Array.from({length:3500},()=> String.fromCharCode(0x30A0 + Math.random()*96)).join('');
+
+document.body.appendChild(glyphs);
+</script>
+<script>
+/* V99999999999999999999 — ABSOLUTE FINAL TIER (MAXIMAL HTML LIMIT) */
+/* Layer: Quantum Fractal Pulse */
+const fractal = document.createElement('canvas');
+fractal.id='fractalPulse';
+fractal.style.position='fixed'; fractal.style.top=0; fractal.style.left=0;
+fractal.style.width='100%'; fractal.style.height='100%';
+fractal.style.pointerEvents='none'; fractal.style.zIndex='-5';
+document.body.appendChild(fractal);
+
+const fctx = fractal.getContext('2d');
+function resizeFractal(){ fractal.width=innerWidth; fractal.height=innerHeight; }
+resizeFractal(); window.addEventListener('resize',resizeFractal);
+
+let t=0;
+function renderFractal(){
+  t+=0.008;
+  const w=fractal.width, h=fractal.height;
+  const img=fctx.createImageData(w,h);
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      const i=(y*w+x)*4;
+      let v=(Math.sin(x*0.02+t)+Math.cos(y*0.02-t))*0.5+0.5;
+      v*=Math.sin((x+y)*0.002+t)*0.5+0.5;
+      img.data[i]=0; img.data[i+1]=v*255; img.data[i+2]=255; img.data[i+3]=v*35;
+    }
+  }
+  fctx.putImageData(img,0,0);
+  requestAnimationFrame(renderFractal);
+}
+renderFractal();
+</script>
 </body>
 </html>
